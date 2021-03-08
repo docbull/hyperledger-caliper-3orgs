@@ -20,7 +20,7 @@ mutual-tls: false
 caliper:
   blockchain: fabric
   command:
-    start: export FABRIC_VERSION=1.4.8;export FABRIC_CA_VERSION=1.4.8;docker-compose -f networks/fabric/docker-compose/2org1peercouchdb_solo_raft/docker-compose-tls.yaml up -d;sleep 30s
+    start: export FABRIC_VERSION=1.4.8;export FABRIC_CA_VERSION=1.4.8;docker-compose -f networks/fabric/docker-compose/2org1peercouchdb_solo_raft/docker-compose-tls.yaml up -d;sleep 5s
     end: docker-compose -f networks/fabric/docker-compose/2org1peercouchdb_solo_raft/docker-compose-tls.yaml down;(test -z \"$(docker ps -aq)\") || docker rm $(docker ps -aq);(test -z \"$(docker images dev* -q)\") || docker rmi $(docker images dev* -q) -f;rm -rf /tmp/hfc-*
 
 info:
@@ -119,22 +119,82 @@ channels:
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: false
-      peer9.org1.example.com:
-        endorsingPeer: false
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: false
-      peer10.org1.example.com:
-        endorsingPeer: false
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: false
       peer0.org2.example.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
+      peer1.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer2.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer3.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer4.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer5.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer6.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer7.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
       peer0.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer1.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer2.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer3.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer4.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer5.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer6.org3.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer7.org3.example.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -172,8 +232,6 @@ organizations:
     - peer6.org1.example.com
     - peer7.org1.example.com
     - peer8.org1.example.com
-    - peer9.org1.example.com
-    - peer10.org1.example.com
     certificateAuthorities:
     - ca.org1.example.com
     adminPrivateKey:
@@ -185,6 +243,13 @@ organizations:
     mspid: Org2MSP
     peers:
     - peer0.org2.example.com
+    - peer1.org2.example.com
+    - peer2.org2.example.com
+    - peer3.org2.example.com
+    - peer4.org2.example.com
+    - peer5.org2.example.com
+    - peer6.org2.example.com
+    - peer7.org2.example.com
     certificateAuthorities:
     - ca.org2.example.com
     adminPrivateKey:
@@ -196,6 +261,13 @@ organizations:
     mspid: Org3MSP
     peers:
     - peer0.org3.example.com
+    - peer1.org3.example.com
+    - peer2.org3.example.com
+    - peer3.org3.example.com
+    - peer4.org3.example.com
+    - peer5.org3.example.com
+    - peer6.org3.example.com
+    - peer7.org3.example.com
     certificateAuthorities:
     - ca.org3.example.com
     adminPrivateKey:
@@ -221,7 +293,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer1.org1.example.com:
-    url: grpcs://localhost:9051
+    url: grpcs://localhost:7151
     grpcOptions:
       ssl-target-name-override: peer1.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -229,7 +301,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer2.org1.example.com:
-    url: grpcs://localhost:10051
+    url: grpcs://localhost:7251
     grpcOptions:
       ssl-target-name-override: peer2.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -237,7 +309,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer2.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer3.org1.example.com:
-    url: grpcs://localhost:11051
+    url: grpcs://localhost:7351
     grpcOptions:
       ssl-target-name-override: peer3.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -245,7 +317,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer3.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer4.org1.example.com:
-    url: grpcs://localhost:12051
+    url: grpcs://localhost:7451
     grpcOptions:
       ssl-target-name-override: peer4.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -253,7 +325,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer4.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer5.org1.example.com:
-    url: grpcs://localhost:13051
+    url: grpcs://localhost:7551
     grpcOptions:
       ssl-target-name-override: peer5.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -261,7 +333,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer5.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer6.org1.example.com:
-    url: grpcs://localhost:14051
+    url: grpcs://localhost:7651
     grpcOptions:
       ssl-target-name-override: peer6.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -269,7 +341,7 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer6.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer7.org1.example.com:
-    url: grpcs://localhost:15051
+    url: grpcs://localhost:7751
     grpcOptions:
       ssl-target-name-override: peer7.org1.example.com
       grpc.keepalive_time_ms: 600000
@@ -277,28 +349,12 @@ peers:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer7.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer8.org1.example.com:
-    url: grpcs://localhost:16051
+    url: grpcs://localhost:7851
     grpcOptions:
       ssl-target-name-override: peer8.org1.example.com
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer8.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
-
-  peer9.org1.example.com:
-    url: grpcs://localhost:17051
-    grpcOptions:
-      ssl-target-name-override: peer9.org1.example.com
-      grpc.keepalive_time_ms: 600000
-    tlsCACerts:
-        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer9.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
-
-  peer10.org1.example.com:
-    url: grpcs://localhost:18051
-    grpcOptions:
-      ssl-target-name-override: peer10.org1.example.com
-      grpc.keepalive_time_ms: 600000
-    tlsCACerts:
-        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org1.example.com/peers/peer10.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
   peer0.org2.example.com:
     url: grpcs://localhost:8051
@@ -308,6 +364,62 @@ peers:
     tlsCACerts:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
 
+  peer1.org2.example.com:
+    url: grpcs://localhost:8151
+    grpcOptions:
+      ssl-target-name-override: peer1.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer2.org2.example.com:
+    url: grpcs://localhost:8251
+    grpcOptions:
+      ssl-target-name-override: peer2.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer2.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer3.org2.example.com:
+    url: grpcs://localhost:8351
+    grpcOptions:
+      ssl-target-name-override: peer3.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer3.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer4.org2.example.com:
+    url: grpcs://localhost:8451
+    grpcOptions:
+      ssl-target-name-override: peer4.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer4.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer5.org2.example.com:
+    url: grpcs://localhost:8551
+    grpcOptions:
+      ssl-target-name-override: peer5.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer5.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer6.org2.example.com:
+    url: grpcs://localhost:8651
+    grpcOptions:
+      ssl-target-name-override: peer6.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer6.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
+  peer7.org2.example.com:
+    url: grpcs://localhost:8751
+    grpcOptions:
+      ssl-target-name-override: peer7.org2.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org2.example.com/peers/peer7.org2.example.com/msp/tlscacerts/tlsca.org2.example.com-cert.pem
+
   peer0.org3.example.com:
     url: grpcs://localhost:30051
     grpcOptions:
@@ -315,6 +427,62 @@ peers:
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
         path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer1.org3.example.com:
+    url: grpcs://localhost:31051
+    grpcOptions:
+      ssl-target-name-override: peer1.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer2.org3.example.com:
+    url: grpcs://localhost:32051
+    grpcOptions:
+      ssl-target-name-override: peer2.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer2.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer3.org3.example.com:
+    url: grpcs://localhost:33051
+    grpcOptions:
+      ssl-target-name-override: peer3.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer3.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer4.org3.example.com:
+    url: grpcs://localhost:34051
+    grpcOptions:
+      ssl-target-name-override: peer4.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer4.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer5.org3.example.com:
+    url: grpcs://localhost:35051
+    grpcOptions:
+      ssl-target-name-override: peer5.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer5.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer6.org3.example.com:
+    url: grpcs://localhost:36051
+    grpcOptions:
+      ssl-target-name-override: peer6.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer6.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
+
+  peer7.org3.example.com:
+    url: grpcs://localhost:37051
+    grpcOptions:
+      ssl-target-name-override: peer7.org3.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+        path: networks/fabric/config_solo_raft/crypto-config/peerOrganizations/org3.example.com/peers/peer7.org3.example.com/msp/tlscacerts/tlsca.org3.example.com-cert.pem
 
 certificateAuthorities:
   ca.org1.example.com:
